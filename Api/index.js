@@ -8,7 +8,7 @@ const productRoute = require("./routes/product")
 const cartRoute = require("./routes/cart")
 const orderRoute = require("./routes/order");
 // const stripeRoute = require("./routes/stripe")
-// const cors = require("cors");
+const cors = require("cors");
 
 // setup env variables
 dotenv.config();
@@ -28,7 +28,7 @@ app.get("/api/test", () => {
     console.log("test is sucessful")
 })
 
-// app.use(cors());
+app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
