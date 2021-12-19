@@ -7,7 +7,7 @@ const authRoute = require("./routes/auth");
 const productRoute = require("./routes/product")
 const cartRoute = require("./routes/cart")
 const orderRoute = require("./routes/order");
-// const stripeRoute = require("./routes/stripe")
+const stripeRoute = require("./routes/stripe")
 const cors = require("cors");
 
 // setup env variables
@@ -35,7 +35,7 @@ app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
 app.use("/api/cart", cartRoute);
 app.use("/api/orders", orderRoute);
-// app.use("/api/checkout", stripeRoute);
+app.use("/api/checkout", stripeRoute);
 
 
 app.listen(PORT, HOST, () => {
