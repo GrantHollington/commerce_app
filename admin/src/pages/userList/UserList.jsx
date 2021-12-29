@@ -1,8 +1,17 @@
 import "./userList.css"
 import { DataGrid } from '@material-ui/data-grid';
 import { DeleteOutline } from "@material-ui/icons";
+import { userRows } from "../../dummyData";
+import { Link } from "react-router-dom"
+import { useState } from "react";
 
 export default function UserList() {
+const [data, setData] = useState(userRows);
+
+const handleDelete = (id) => {
+    setData(data.filter(item => item.id !== id));
+};
+
 const columns = [
   { field: 'id', headerName: 'ID', width: 90 },
   { field: 'user', headerName: 'User', width: 200, renderCell: (params) => {
@@ -31,8 +40,10 @@ const columns = [
     renderCell: (params) => {
         return (
             <>
-                <button className="userListEdit">Edit</button>
-                <DeleteOutline className="userListDelete"/>
+                <Link to={"/user/" + params.row.id }>
+                    <button className="userListEdit">Edit</button>
+                </Link>
+                <DeleteOutline className="userListDelete" onClick={() => handleDelete(params.row.id)}/>
             </>
         )
     }
@@ -40,22 +51,10 @@ const columns = [
 
 ];
 
-const rows = [
-    { id: 1, username: 'Jon Snow', avatar: "https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500", email: "John@gmail.com", status: "active", transaction: "$120" },
-    { id: 2, username: 'Jon Snow', avatar: "https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500", email: "John@gmail.com", status: "active", transaction: "$120" },
-    { id: 3, username: 'Jon Snow', avatar: "https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500", email: "John@gmail.com", status: "active", transaction: "$120" },
-    { id: 4, username: 'Jon Snow', avatar: "https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500", email: "John@gmail.com", status: "active", transaction: "$120" },
-    { id: 5, username: 'Jon Snow', avatar: "https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500", email: "John@gmail.com", status: "active", transaction: "$120" },
-    { id: 6, username: 'Jon Snow', avatar: "https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500", email: "John@gmail.com", status: "active", transaction: "$120" },
-    { id: 7, username: 'Jon Snow', avatar: "https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500", email: "John@gmail.com", status: "active", transaction: "$120" },
-    { id: 8, username: 'Jon Snow', avatar: "https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500", email: "John@gmail.com", status: "active", transaction: "$120" },
-    { id: 9, username: 'Jon Snow', avatar: "https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500", email: "John@gmail.com", status: "active", transaction: "$120" },
-    { id: 10, username: 'Jon Snow', avatar: "https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500", email: "John@gmail.com", status: "active", transaction: "$120" }
-];
 
     return (
         <div className="userList">
-                 <DataGrid rows={rows} disableSelectionOnClick columns={columns}  pageSize={8} rowsPerPageOptions={[5]} checkboxSelection />
+                 <DataGrid rows={data} disableSelectionOnClick columns={columns}  pageSize={8} rowsPerPageOptions={[5]} checkboxSelection />
         </div>
     )
 }
